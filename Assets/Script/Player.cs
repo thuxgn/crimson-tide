@@ -4,31 +4,29 @@ using System;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float moveSpeed = 10f;
     private Rigidbody2D rb;
     private void HandleMovement()
     {
-        float moveInputX = 0;
-        float moveInputY = 0;
+        Vector2 moveInput = Vector2.zero;
 
-        if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed)
-        {
-            moveInputX = -1;
-        }
-        if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
-        {
-            moveInputX = 1;
-        }
-        if (Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed)
-        {
-            moveInputY = 1;
-        }
-        if (Keyboard.current.sKey.isPressed || Keyboard.current.downArrowKey.isPressed)
-        {
-            moveInputY = -1;
-        }
+        if (Keyboard.current.wKey.isPressed)
+            moveInput.y = 1;
 
-        rb.linearVelocity = new Vector2(moveInputX * moveSpeed, moveInputY * moveSpeed);
+        if (Keyboard.current.sKey.isPressed)
+            moveInput.y = -1;
+
+        if (Keyboard.current.aKey.isPressed)
+            moveInput.x = -1;
+
+        if (Keyboard.current.dKey.isPressed)
+            moveInput.x = 1;
+
+        // Chuẩn hóa hướng di chuyển
+        Vector2 movement = moveInput.normalized;
+
+        // Di chuyển nhân vật
+        rb.linearVelocity = movement * moveSpeed;
 
 
     }
@@ -41,6 +39,11 @@ public class Player : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+       
+    }
+
+    void FixedUpdate()
     {
         HandleMovement();
     }
