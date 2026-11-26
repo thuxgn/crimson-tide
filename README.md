@@ -1,1 +1,1 @@
-fork, clone, create branch username/dev, commmit and create pull request
+fork, clone, commmit and create pull request
